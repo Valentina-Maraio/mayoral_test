@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import { Card, Grid, Text, Row, Button, Spacer, Input } from '@nextui-org/react';
+import React, { useState, useReducer } from 'react';
+import { Card, Grid, Text, Row, Button, Input } from '@nextui-org/react';
 import { data } from '../data/data';
+import { reducer } from '../button_logic/reducer';
+import { getSortProduct } from '../button_logic/getSortProduct';
 
 export default function Cards() {
+  const [{sortBy}, dispatch] = useReducer(reducer, { sortBy: 'none'});
+
+  const sortedProduct = getSortProduct([...data], sortBy);
+
+
   const [query, setQuery] = useState('');
-  console.log(query)
 
   return (
     <>
@@ -15,8 +21,22 @@ export default function Cards() {
           aria-label='search_bar'
           onChange={(e) => setQuery(e.target.value)}
           />
+          <Row justify='flex-end'>
+          <Button
+          auto
+          color="primary"
+          rounded
+          bordered
+          onChange={() => dispatch({ type: "SORT_PRICE", payload: "LOw_TO_HIGH"})}> - </Button>
+          <Button
+          auto
+          color="primary"
+          rounded
+          bordered
+          onChange={() => dispatch({ type: "SORT_PRICE", payload: "HIGHT_TO_LOW"})}> + </Button>
+          </Row>
         </Grid>
-        {data.filter((prod) => {
+        {sortedProduct.filter((prod) => {
           return query.toLowerCase() === '' ? prod : prod.title.toLowerCase().includes(query);
         }).map((prod) => (
           <Grid xs={6} sm={3}>
@@ -24,7 +44,7 @@ export default function Cards() {
               <Card.Image
                 showSkeleton={true}
                 autoResize={true}
-                alt={prod.title}
+                alt='image'
                 src={prod.image}
                 objectFit="scale-down"
                 width="180px"

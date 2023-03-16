@@ -10,10 +10,12 @@
   },
   "dependencies": {
     "@nextui-org/react": "^1.0.0-beta.12",
+    "bulma": "^0.9.4",
     "micro": "^9.3.4",
     "next": "12.1.5",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.0.5",
     "sharp": "^0.30.4"
   },
   "devDependencies": {
