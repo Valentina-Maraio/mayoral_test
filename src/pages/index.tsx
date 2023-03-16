@@ -1,7 +1,12 @@
-import { NextPage } from "next";
+import { NextPage } from 'next';
+import Cards from '../../componentes/Cards';
 
 const HomePage: NextPage = () => {
-  return <div>Hello World!</div>;
+  return (
+    <>
+    <Cards/>
+    </>
+  );
 };
 
 export default HomePage;
